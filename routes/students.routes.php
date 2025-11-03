@@ -16,14 +16,17 @@ class RouterStudent
       $this->controller = $controller;
 
       $this->endpoints = [
-         "students" => "/api/server.php/students",
+         "createStudents" => "/api/server.php/students",
+         "getStudents" => "/api/server.php/students"
       ];
    }
 
    public function getEndpoint()
    {
-      if ($this->url === $this->endpoints["students"]) {
+      if ($this->url === $this->endpoints["createStudents"] && $this->req["REQUEST_METHOD"] === "POST") {
          $this->controller->create($this->req);
+      } elseif ($this->url === $this->endpoints["getStudents"] && $this->req["REQUEST_METHOD"] === "GET") {
+         $this->controller->findAll();
       } else {
          http_response_code(404);
          echo json_encode(array(

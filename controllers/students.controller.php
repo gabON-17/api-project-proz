@@ -15,6 +15,14 @@ class StudentsController
       $response = $this->studentsService->create($body);
 
       http_response_code($response["statusCode"]);
-      echo 'test';
+      echo json_encode($response);
+   }
+
+   public function findAll()
+   {
+      $response = $this->studentsService->findAll();
+
+      http_response_code($response["statusCode"]);
+      echo json_encode($response);
    }
 }

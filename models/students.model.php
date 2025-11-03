@@ -41,5 +41,20 @@ class StudentsModel implements Models
          return ["status" => false];
       }
    }
+
+   public function findAll()
+   {
+      $comand = $this->connection->prepare("SELECT * FROM students");
+
+      try {
+         $comand->execute();
+         $students = $comand->fetchAll(PDO::FETCH_ASSOC);
+
+         return ["status" => true, "data" => $students];
+      } catch (PDOException $e) {
+         return ["status" => false];
+      }
+   }
+
    public function dell($params) {}
 }
