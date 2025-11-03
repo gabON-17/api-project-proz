@@ -6,8 +6,7 @@ class AddBodyMiddleware
    {
       if ($request["REQUEST_METHOD"] === 'POST') {
          $request["BODY"] = file_get_contents('php://input');
-         return $request;
       }
-      exit;
+      return $request;
    }
 }
