@@ -6,7 +6,7 @@ create table students (
     name varchar(100),
     date date,
     sex enum('M', 'F'),
-	cpf int unique,
+	cpf varchar(11) unique,
 	address varchar(255),
     complement varchar(100),
 	cep int,

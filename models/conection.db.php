@@ -22,7 +22,7 @@ class ConnectionMySQL
       try {
          $dsn = "$driver:host=$host;port=$port;dbname=$nameDB;charset=utf8";
 
-         self::$conection = new PDO("$driver:host=$host;port=$port;dbname=$nameDB;charset=utf8", $user);
+         self::$conection = new PDO($dsn, $user);
 
          self::$conection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
          self::$conection->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
