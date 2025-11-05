@@ -21,7 +21,7 @@ class ConnectionMySQL
          self::$conection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
          self::$conection->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
       } catch (PDOException $e) {
-         echo $e->getMessage();
+         echo $e->getPrevious();
       }
    }
 
