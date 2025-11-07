@@ -12,17 +12,19 @@ class CoursesController
    public function create($req)
    {
       $body = json_decode($req["BODY"]);
-      $data = $this->coursesService->create($body);
+      $response = $this->coursesService->create($body);
 
-      print_r($data);
+      http_response_code($response["statusCode"]);
+      echo json_encode($response);
       exit();
    }
 
    public function findAll()
    {
-      $data = $this->coursesService->findAll();
+      $response = $this->coursesService->findAll();
 
-      print_r($data);
+      http_response_code($response["statusCode"]);
+      echo json_encode($response);
       exit();
    }
 }

@@ -2,7 +2,7 @@
 
 class TeachersModel implements Models
 {
-   private $connection;
+   private readonly mixed $connection;
 
    public function __construct($connection)
    {
@@ -11,12 +11,11 @@ class TeachersModel implements Models
 
    public function create($body)
    {
-
       $cpf = isset($body->cpf) ? preg_replace('/[^0-9]/', '', $body->cpf) : null;
 
       $comand = $this->connection->prepare(
          "INSERT INTO teachers 
-            (name, sex, cpf, telephone)
+            (teacher_name, sex, cpf, telephone)
          VALUES
             (?, ?, ?, ?)"
       );
@@ -39,9 +38,9 @@ class TeachersModel implements Models
 
       try {
          $comand->execute();
-         $teachers = $comand->fetchAll(PDO::FETCH_ASSOC);
+         $students = $comand->fetchAll(PDO::FETCH_ASSOC);
 
-         return ["status" => true, "data" => $teachers];
+         return ["status" => true, "data" => $students];
       } catch (PDOException $e) {
          return ["status" => false];
       }

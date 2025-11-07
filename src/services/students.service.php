@@ -16,18 +16,16 @@ class StudentsService
       if (!$status['status']) {
          return ["message" => 'Not Create', "statusCode" => 403];
       }
-
       return ["message" => 'Create', "statusCode" => 201];
    }
 
    public function findAll()
    {
-      $data = $this->studentsModel->findAll();
+      $status = $this->studentsModel->findAll();
 
-      if (!$data["status"]) {
+      if (!$status["status"]) {
          return ["message" => 'Bad Request', "statusCode" => 400];
       }
-
-      return ["message" => 'OK', "statusCode" => 200, "data" => $data["data"]];
+      return ["message" => 'OK', "statusCode" => 200, "status" => $status["data"]];
    }
 }

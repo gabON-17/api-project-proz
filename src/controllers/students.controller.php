@@ -16,6 +16,7 @@ class StudentsController
 
       http_response_code($response["statusCode"]);
       echo json_encode($response);
+      exit();
    }
 
    public function findAll()
@@ -24,5 +25,6 @@ class StudentsController
 
       http_response_code($response["statusCode"]);
       echo json_encode($response);
+      exit();
    }
 }

@@ -3,20 +3,24 @@
 require_once "./routes/students.router.php";
 require_once "./routes/teachers.router.php";
 require_once "./routes/courses.router.php";
+require_once "./routes/register.router.php";
 
 require_once "./common/middleware/addBody.middleware.php";
 
 require_once "./controllers/students.controller.php";
 require_once "./controllers/teachers.controller.php";
 require_once "./controllers/courses.controller.php";
+require_once "./controllers/register.controller.php";
 
 require_once "./services/students.service.php";
 require_once "./services/teachers.service.php";
 require_once "./services/courses.service.php";
+require_once "./services/register.service.php";
 
 require_once "./models/students.model.php";
 require_once "./models/teachers.model.php";
 require_once "./models/courses.model.php";
+require_once "./models/register.model.php";
 require_once "./models/connection/conection.db.php";
 
 use Dotenv\Dotenv;
@@ -43,7 +47,9 @@ class Server
       $routerStudent = new RouterStudent($this->request, $this->controllers["students"]);
       $routerTeacher = new RouterTeachers($this->request, $this->controllers["teachers"]);
       $routerCourser = new RouterCourses($this->request, $this->controllers["courses"]);
+      $routerRegister = new RouterRegister($this->request, $this->controllers["register"]);
 
+      $routerRegister->getEndpoint();
       $routerCourser->getEndpoint();
       $routerTeacher->getEndpoint();
       $routerStudent->getEndpoint();
@@ -60,16 +66,19 @@ $connection = (new ConnectionMySQL())->getConection();
 $studentsModel = new StudentsModel($connection);
 $teacherModel = new TeachersModel($connection);
 $coursesModel = new CoursesModel($connection);
+$registerModel = new RegisterModel($connection);
 
 $ControllerStudent = new StudentsController(new StudentsService($studentsModel));
 $ControllerTeacher = new TeachersController(new TeachersService($teacherModel));
-$ControllerCourses = new CoursesController(new CoursesService($coursesModel));
+$ControllerCourses = new CoursesController(new CoursesService($coursesModel, $teacherModel));
+$ControllerRegister = new RegisterController(new RegisterService($registerModel));
 
 $server = new Server(
    controllers: [
       "students" => $ControllerStudent,
       "teachers" => $ControllerTeacher,
-      "courses" => $ControllerCourses
+      "courses" => $ControllerCourses,
+      "register" => $ControllerRegister
    ]
 );
 

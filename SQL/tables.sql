@@ -14,16 +14,13 @@ create table students (
     city varchar(255),
     state varchar(70),
     telephone varchar(30) unique,
-    course_id int,
     createAt DATETIME DEFAULT CURRENT_TIMESTAMP,
-    updateAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    
-    foreign key(course_id) references courses(id) on delete set null 
+    updateAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 create table teachers (
 	id int primary key auto_increment,
-    name varchar(100),
+    teacher_name varchar(100),
     sex enum("M", "F"),
     cpf varchar(15) unique,
     telephone varchar(20) unique,
@@ -36,16 +33,28 @@ create table courses(
     name varchar(100),
     description text,
     creation_date date,
-    teacher int,
+    teacher_id int,
 	createAt DATETIME DEFAULT CURRENT_TIMESTAMP,
-    updateAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    updateAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
+    foreign key(teacher_id) references teachers(id) on delete set null 
 );
 
-describe students;
+create table register(
+	
+);
+
+describe courses;
 
 insert into students values (
 	 1, "test", 2025-02-12, 'M', 123456, "Moro em test, 333", "Casa", 9090, "Bairro Teste", "Cidade Test", "MG", 123423
 );
 
-drop table students;
+drop table php_project.students;
+DROP TABLE php_project.teachers;
+DROP TABLE php_project.courses;
+
 select * from students;
+select * from teachers;
+select * from courses;
+select c.name, c.description , c.creation_date , t.teacher_name from courses c join teachers t on c.teacher_id = t.id;

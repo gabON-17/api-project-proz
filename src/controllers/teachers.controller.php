@@ -12,17 +12,19 @@ class TeachersController
    public function create($req)
    {
       $body = json_decode($req["BODY"]);
-      $data = $this->teacherService->create($body);
+      $response = $this->teacherService->create($body);
 
-      print_r($data);
+      http_response_code($response["statusCode"]);
+      echo json_encode($response);
       exit();
    }
 
    public function findAll($req)
    {
-      $data = $this->teacherService->findAll();
+      $response = $this->teacherService->findAll();
 
-      print_r($data);
+      http_response_code($response["statusCode"]);
+      echo json_encode($response);
       exit();
    }
 }
