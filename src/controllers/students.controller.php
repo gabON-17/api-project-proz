@@ -14,6 +14,7 @@ class StudentsController
       $body = json_decode($req["BODY"]);
       $response = $this->studentsService->create($body);
 
+      echo print_r($body);
       http_response_code($response["statusCode"]);
       echo json_encode($response);
       exit();
@@ -22,7 +23,6 @@ class StudentsController
    public function findAll()
    {
       $response = $this->studentsService->findAll();
-
       http_response_code($response["statusCode"]);
       echo json_encode($response);
       exit();

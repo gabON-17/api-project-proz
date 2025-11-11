@@ -42,6 +42,12 @@ class Server
 
    public function bootstrap()
    {
+
+      header("Access-Control-Allow-Origin: *");
+      header("Access-Control-Allow-Methods: GET, POST");
+      header("Access-Control-Allow-Headers: Content-Type");
+      header('Content-Type: application/json');
+
       $this->request = AddBodyMiddleware::addBory($this->request);
 
       $routerStudent = new RouterStudent($this->request, $this->controllers["students"]);
@@ -49,15 +55,10 @@ class Server
       $routerCourser = new RouterCourses($this->request, $this->controllers["courses"]);
       $routerRegister = new RouterRegister($this->request, $this->controllers["register"]);
 
-      $routerRegister->getEndpoint();
       $routerCourser->getEndpoint();
       $routerTeacher->getEndpoint();
       $routerStudent->getEndpoint();
-
-      header("Access-Control-Allow-Origin: *");
-      header("Access-Control-Allow-Methods: GET, POST");
-      header("Access-Control-Allow-Headers: Content-Type");
-      header('Content-Type: application/json');
+      $routerRegister->getEndpoint();
    }
 }
 
@@ -71,7 +72,7 @@ $registerModel = new RegisterModel($connection);
 $ControllerStudent = new StudentsController(new StudentsService($studentsModel));
 $ControllerTeacher = new TeachersController(new TeachersService($teacherModel));
 $ControllerCourses = new CoursesController(new CoursesService($coursesModel, $teacherModel));
-$ControllerRegister = new RegisterController(new RegisterService($registerModel));
+$ControllerRegister = new RegisterController(new RegisterService($registerModel, $studentsModel));
 
 $server = new Server(
    controllers: [

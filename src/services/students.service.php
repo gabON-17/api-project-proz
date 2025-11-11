@@ -26,6 +26,6 @@ class StudentsService
       if (!$status["status"]) {
          return ["message" => 'Bad Request', "statusCode" => 400];
       }
-      return ["message" => 'OK', "statusCode" => 200, "status" => $status["data"]];
+      return ["message" => 'OK', "statusCode" => 200, "data" => $status["data"]];
    }
 }

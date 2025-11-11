@@ -30,9 +30,8 @@ create table teachers (
 
 create table courses(
 	id int auto_increment primary key,
-    name varchar(100),
+    name varchar(100) unique,
     description text,
-    creation_date date,
     teacher_id int,
 	createAt DATETIME DEFAULT CURRENT_TIMESTAMP,
     updateAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -41,14 +40,14 @@ create table courses(
 );
 
 create table register(
-	
+	register_number varchar(5) primary key,
+	student_id int,
+	course_id int,
+	createAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updateAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
-describe courses;
-
-insert into students values (
-	 1, "test", 2025-02-12, 'M', 123456, "Moro em test, 333", "Casa", 9090, "Bairro Teste", "Cidade Test", "MG", 123423
-);
+describe teachers;
 
 drop table php_project.students;
 DROP TABLE php_project.teachers;
@@ -57,4 +56,8 @@ DROP TABLE php_project.courses;
 select * from students;
 select * from teachers;
 select * from courses;
+select * from register;
 select c.name, c.description , c.creation_date , t.teacher_name from courses c join teachers t on c.teacher_id = t.id;
+
+DELETE FROM php_project.students
+WHERE id=3;

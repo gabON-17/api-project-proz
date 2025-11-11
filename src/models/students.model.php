@@ -44,7 +44,11 @@ class StudentsModel implements Models
 
    public function findAll()
    {
-      $comand = $this->connection->prepare("SELECT * FROM students");
+      $comand = $this->connection->prepare(
+         "SELECT  
+            name, cpf, birth, sex, city, nearby, cep, address, telephone
+         FROM students"
+      );
 
       try {
          $comand->execute();

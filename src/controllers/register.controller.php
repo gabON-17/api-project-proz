@@ -14,7 +14,7 @@ class RegisterController
       $body = json_decode($req["BODY"]);
       $response = $this->registerService->create($body);
 
-      // http_response_code($response["statusCode"]);
+      http_response_code($response["statusCode"]);
       echo json_encode($response);
       exit();
    }
@@ -22,9 +22,9 @@ class RegisterController
    public function findAll()
    {
       $response = $this->registerService->findAll();
-
-      // http_response_code($response["statusCode"]);
+      http_response_code($response["statusCode"]);
       echo json_encode($response);
+
       exit();
    }
 }

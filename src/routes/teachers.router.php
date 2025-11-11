@@ -16,8 +16,8 @@ class RouterTeachers implements Router
       $this->controller = $controller;
 
       $this->endpoints = [
-         "createTeacher" => "/api/src/server.php/teacher",
-         "getTeacher" => "/api/src/server.php/teacher"
+         "createTeacher" => "/api/src/server.php/teachers",
+         "getTeacher" => "/api/src/server.php/teachers"
       ];
    }
 

@@ -34,13 +34,16 @@ class TeachersModel implements Models
 
    public function findAll()
    {
-      $comand = $this->connection->prepare("SELECT * FROM teachers");
+      $comand = $this->connection->prepare(
+         "SELECT 
+            id, teacher_name, sex, cpf, telephone 
+         FROM teachers"
+      );
 
       try {
          $comand->execute();
-         $students = $comand->fetchAll(PDO::FETCH_ASSOC);
-
-         return ["status" => true, "data" => $students];
+         $teachers = $comand->fetchAll(PDO::FETCH_ASSOC);
+         return ["status" => true, "data" => $teachers];
       } catch (PDOException $e) {
          return ["status" => false];
       }

@@ -15,14 +15,14 @@ class MiddlewareCreateStudent
          exit();
       }
 
-      if (count($body) <> 11) {
-         http_response_code(403);
-         echo json_encode([
-            "message" => "Error. Dados incorretos",
-            "statusCode" => 403,
-         ]);
-         exit();
-      };
+      // if (count($body) > 10) {
+      //    http_response_code(403);
+      //    echo json_encode([
+      //       "message" => "Error. Dados incorretos",
+      //       "statusCode" => 403,
+      //    ]);
+      //    exit();
+      // };
 
       if (!$body["name"] || !$body["birth"] || !$body["cpf"] || !$body["cep"]) {
          http_response_code(403);

@@ -13,16 +13,15 @@ class CoursesModel implements Models
    {
       $comand = $this->connection->prepare(
          "INSERT INTO courses 
-            (name, description, creation_date, teacher_id)
+            (name, description, teacher_id)
          VALUES
-            (?, ?, ?, ?)"
+            (?, ?, ?)"
       );
       try {
          $comand->execute([
             $body->name ?? null,
             $body->description ?? null,
-            $body->creation_date ?? null,
-            $body->teacher_id,
+            $body->teacher,
          ]);
          return ["status" => true];
       } catch (PDOException $e) {
@@ -34,16 +33,18 @@ class CoursesModel implements Models
    {
       $comand = $this->connection->prepare(
          "SELECT 
-            c.name, c.description, c.creation_date, c.teacher_id
+            c.name, c.description, t.teacher_name
          FROM 
-            courses c"
+            courses c
+         JOIN
+            teachers t ON c.teacher_id = t.id"
       );
 
       try {
          $comand->execute();
-         $students = $comand->fetchAll(PDO::FETCH_ASSOC);
+         $courses = $comand->fetchAll(PDO::FETCH_ASSOC);
 
-         return ["status" => true, "data" => $students];
+         return ["status" => true, "data" => $courses];
       } catch (PDOException $e) {
          return ["status" => false];
       }
